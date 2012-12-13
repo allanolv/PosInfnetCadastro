@@ -58,37 +58,24 @@ namespace Cadastro.DAL.SqlProvider
             }
         }
 
-        public void Delete(T entity)
+        public void Delete(Guid id)
         {
-            using (SqlConnection connection = new SqlConnection(""))
+            using (SqlCommand command = GetCommand(GetDeleteCommand(id.ToString())))
             {
-                using (SqlCommand command = new
-                    SqlCommand("DELETE FROM T WHERE ID = ", connection))
-                {
-                    connection.Open();
-                    int result = command.ExecuteNonQuery();
-                    connection.Close();
-                }
+                command.Connection.Open();
+                int result = command.ExecuteNonQuery();
+                command.Connection.Close();
             }
         }
 
-        public void Update(T entity)
+        public void Update(T entity, Guid id)
         {
-            using (SqlConnection connection = new SqlConnection(""))
+            using (SqlCommand command = GetCommand(GetUpdateCommand(entity)))
             {
-                using (SqlCommand command = new
-                    SqlCommand("UPDATE T SET Nome =  WHERE ID = ", connection))
-                {
-                    connection.Open();
-                    int result = command.ExecuteNonQuery();
-                    connection.Close();
-                }
+                command.Connection.Open();
+                int result = command.ExecuteNonQuery();
+                command.Connection.Close();
             }
-        }
-
-        public void SaveAll()
-        {
-
         }
 
         private SqlConnection GetConnection()
@@ -102,9 +89,14 @@ namespace Cadastro.DAL.SqlProvider
         }
 
         protected abstract string GetSelectCommand();
+
         protected abstract string GetSelectCommand(string id);
 
+        protected abstract string GetDeleteCommand(string id);
+
         protected abstract string GetInsertCommand(T entidade);
+
+        protected abstract string GetUpdateCommand(T entidade);
 
         protected abstract T Hydrate(SqlDataReader reader);
 

@@ -14,5 +14,10 @@ namespace Cadastro.Factory
         {
             return new FisicaDao();
         }
+
+        public static IDAL<Pessoa> GetPessoaDao()
+        {
+            return new PessoaDao();
+        }
     }
 }

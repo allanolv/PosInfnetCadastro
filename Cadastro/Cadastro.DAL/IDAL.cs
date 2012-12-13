@@ -12,8 +12,7 @@ namespace Cadastro.DAL
         T Get(Guid id);
 
         void Insert(T entity);
-        void Delete(T entity);
-        void Update(T entity);
-        void SaveAll();
+        void Delete(Guid id);
+        void Update(T entity, Guid id);
     }
 }

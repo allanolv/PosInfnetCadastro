@@ -9,8 +9,8 @@ namespace Cadastro.DAL.SqlProvider
     {
         protected override string GetInsertCommand(Fisica entidade)
         {
-            return String.Format("INSERT INTO FISICA (ID, NOME, IDADE, SEXO) VALUES ('{0}', '{1}', {2}, '{3}')",
-                entidade.ID, entidade.Nome, entidade.Idade, entidade.Sexo);
+            return String.Format("INSERT INTO FISICA (ID, IDADE, SEXO) VALUES ('{0}', '{1}', {2})",
+                entidade.ID, entidade.Idade, entidade.Sexo);
         }
 
         protected override string GetSelectCommand()
@@ -20,7 +20,17 @@ namespace Cadastro.DAL.SqlProvider
 
         protected override string GetSelectCommand(string id)
         {
-            return "SELECT * FROM Fisica WHERE ID = '" + id + "'";
+            return string.Format("SELECT * FROM Fisica WHERE ID = '{0}'", id);
+        }
+
+        protected override string GetUpdateCommand(Fisica entidade)
+        {
+            return string.Format("UPDATE Fisica SET IDADE = {1}, SEXO = '{2}' WHERE ID = '{0}'", entidade.ID, entidade.Idade, entidade.Sexo);
+        }
+
+        protected override string GetDeleteCommand(string id)
+        {
+            return string.Format("DELETE FROM Fisica WHERE ID = '{0}'", id);
         }
 
         protected override Fisica Hydrate(SqlDataReader reader)
@@ -31,7 +41,6 @@ namespace Cadastro.DAL.SqlProvider
             fisica.Nome = reader[1].ToString();
             fisica.Idade = int.Parse(reader[2].ToString());
             fisica.Sexo = reader[3].ToString();
-            //T.Telefones = ???
 
             return fisica;
         }

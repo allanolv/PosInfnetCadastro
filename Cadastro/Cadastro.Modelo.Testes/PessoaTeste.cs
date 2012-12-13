@@ -34,5 +34,17 @@ namespace Cadastro.Modelo.Testes
 
             Assert.IsNotNull(fisica);
         }
+
+
+        [Test]
+        public void testa_insert_no_bancoPessoa()
+        {
+            Pessoa pessoa = new Pessoa();
+            pessoa.ID = Guid.NewGuid();
+            pessoa.Nome = "Ubirajara Mendes";
+
+            IDAL<Pessoa> dao = Factory.DaoFactory.GetPessoaDao();
+            dao.Insert(pessoa);
+        }
     }
 }

@@ -5,16 +5,10 @@ using System.Text;
 
 namespace Cadastro.Model
 {
-    public abstract class Pessoa
+    public class Pessoa
     {
-        protected Pessoa()
-        {
-            Telefones = new List<Telefone>();
-        }
-
         public Guid ID { get; set; }
         public string Nome { get; set; }
 
-        public virtual List<Telefone> Telefones { get; set; }
     }
 }
